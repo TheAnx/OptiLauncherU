@@ -11,3 +11,11 @@ Este es un launcher diseñado para poder ejecutar la mayoria de versiones de Opt
 
 ## ATENCION
 ESTE REPOSITORIO NO INCLUYE LOS CRACKS NI LOS JUEGOS, SOLO ES UN LAUNCHER PARA OPTICRAFT 
+
+## Authors
+
+- [@TheAnx](https://www.github.com/TheAnx) Discord: javier_mileiok
+- [@FrAndroidd](https://github.com/FrAndroidd) Discord: FrAndroidd
+- [Star] Discord: starx006
+
+
