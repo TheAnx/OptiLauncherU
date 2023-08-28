@@ -13,7 +13,7 @@ Este es un launcher diseñado para poder ejecutar la mayoría de versiones de Op
 
 #### ¿Cada cuanto se actualizara el launcher?
 
-El launcher se actualizará cuando salga una nueva version de OptiCraft, Por ej. Opticraft BE1.21, luego de eso, si no se encuentran bugs, no se actualizará el launcher
+El launcher se actualizará cuando salga una nueva versión de OptiCraft, Por ej. Opticraft BE1.21, luego de eso, si no se encuentran bugs, no se actualizará el launcher
 
 #### ¿Cada cuanto se actualizara las versiones de opticraft?
 
