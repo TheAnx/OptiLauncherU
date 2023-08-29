@@ -1,23 +1,27 @@
 
 # OptiLauncherU
 
-Este repositorio contiene el source code del launcher 
+Este repositorio contiene el source code del launcher.
 
 
 
 
 ## ¿Qué es?
-Este es un launcher diseñado para poder ejecutar la mayoría de versiones de Opticraft, Ya sea Opticraft Java u Opticraft Bedrock
+Este es un launcher diseñado para poder ejecutar la mayoría de versiones de Opticraft, Ya sea OptiCraft Java u OptiCraft Bedrock.
 
 ## FAQ
 
-#### ¿Cada cuanto se actualizara el launcher?
+#### Is there an english version of this launcher?
 
-El launcher se actualizará cuando salga una nueva versión de OptiCraft, Por ej. Opticraft BE1.21, luego de eso, si no se encuentran bugs, no se actualizará el launcher
+Yes, you can check https://github.com/NobleEpuz/OptiLauncherU-English-Edition made by [@NobleEpuz](https://github.com/NobleEpuz)
 
-#### ¿Cada cuanto se actualizara las versiones de opticraft?
+#### ¿Cada cuanto se actualizará el launcher?
 
-Las versiones de opticraft serán actualizadas hasta 24 horas después de que salga nueva versión 
+El launcher se actualizará cuando salga una nueva versión de OptiCraft, por ej. OptiCraft BE 1.21, luego de eso, si no se encuentran bugs, no se actualizará el launcher.
+
+#### ¿Cada cuanto se actualizan las versiones de OptiCraft?
+
+Las versiones de OptiCraft serán actualizadas hasta 24 horas después de que salga una nueva versión.
 
 
 ## Autores
