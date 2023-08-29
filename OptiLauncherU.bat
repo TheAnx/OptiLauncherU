@@ -3,15 +3,69 @@ setlocal
 setlocal EnableExtensions
 setlocal enabledelayedexpansion
 color 0F
-title OptiLauncher v2.1A
-set BATCH_VERSION=2.1.1
+title OptiLauncher v2.1B
+set BATCH_VERSION=2.1.2
 set API_URL=https://orl.theanx9.repl.co/launcher
 set OPTID=%~dp0OptiData
 chcp 65001 > nul
-reg Query "HKLM\Hardware\Description\System\CentralProcessor\0" | find /i "x86" > nul && set OS=32 || set OS=64
+
+:: Este segundo Echo es para Windows 7
+:: Por alguna razón Windows 7 no quiere leer el primero??
+@echo off
 
 
 :: --------------------------------------------------------------- INICIO --------------------------------------------------------------
+
+for /f "tokens=4-5 delims=. " %%i in ('ver') do set wver=%%i.%%j
+
+:wincheck
+if not !wver! == 10.0 (if exist "!OPTID!\Tools\wget.exe" (goto menu)
+mkdir "!OPTID!\Tools"
+mode con: cols=61 lines=27
+cls
+echo.
+echo        _____     _   _ __                     _          
+echo       /     /___/ /_/_/  /  ____ _ _ ___ ____/ /____ ___
+echo      /  /  / . /  _/ /  /__/ . // / /   /  _/   / -_/ _/
+echo     /_____/  _/_/ /_/_____/_/_//___/_/_/___/_/_/___/_/  
+echo           /_/                                           
+echo.
+echo -------------------------------------------------------------
+echo    Parece que tenés Windows 8.1 o inferior.
+echo.
+echo    Estas versiones de Windows no traen cURL preinstalado,
+echo    y por lo tanto, no se podrán descargar algunos archivos
+echo    necesarios para el funcionamiento del launcher.
+echo.
+echo    Para solucionar esto, tenés que descargar los archivos
+echo    requeridos, de manera manual.
+echo.
+echo    Se te abrirá el navegador descargando un archivo ZIP.
+echo    Deberás extraer el archivo ZIP en la siguiente carpeta:
+echo    OptiData/Tools - ubicada en esta misma carpeta
+echo.
+echo    Una vez hecho eso, podrás continuar.
+echo.
+echo    Presioná cualquier tecla para descargar el ZIP.
+echo.
+pause > nul
+start "" "https://github.com/TheAnx/OptiLauncherU/raw/main/Tools.zip"
+mode con: cols=61 lines=13
+cls
+echo.
+echo        _____     _   _ __                     _          
+echo       /     /___/ /_/_/  /  ____ _ _ ___ ____/ /____ ___
+echo      /  /  / . /  _/ /  /__/ . // / /   /  _/   / -_/ _/
+echo     /_____/  _/_/ /_/_____/_/_//___/_/_/___/_/_/___/_/  
+echo           /_/                                           
+echo.
+echo -------------------------------------------------------------
+echo    Presioná cualquier tecla cuando ya hayas extraído
+echo    el archivo en la carpeta OptiData/Tools
+echo.
+pause > nul) else (goto menu)
+if not exist "!OPTID!\Tools\wget.exe" (goto wincheck)
+
 
 :menu
 set choicemenu=
@@ -34,32 +88,31 @@ echo       /     /___/ /_/_/  /  ____ _ _ ___ ____/ /____ ___
 echo      /  /  / . /  _/ /  /__/ . // / /   /  _/   / -_/ _/
 echo     /_____/  _/_/ /_/_____/_/_//___/_/_/___/_/_/___/_/  
 echo           /_/                                           
-echo                               The Ultimate Edition - v2.1A
+echo                               The Ultimate Edition - v2.1B
 echo -------------------------------------------------------------
-echo.
+if !wver! == 10.0 (echo.)
 echo    OptiJuegos - Desarollador de OptiCraft
 echo    javier_mileiok, FrAndroid - Desarolladores del launcher
 echo    FrAndroid, StarX006 - Diseño
 echo.
 
 :: Descargar archivos necesarios, como wget y archivos de 7-Zip
-:d
 if not exist "!OPTID!\Tools\wget.exe" (
     echo    Descargando archivos necesarios 1/4...
-    curl -s -L --connect-timeout 15 --retry-all-errors -o "!OPTID!\Tools\wget.exe" https://cdn.discordapp.com/attachments/1122366459927081050/1142217572813652069/wget.exe)
+    curl -s -L --connect-timeout 15 --retry-all-errors -o "!OPTID!\Tools\wget.exe" https://github.com/TheAnx/OptiLauncherU/raw/main/wget.exe)
 if not exist "!OPTID!\Tools\7za.exe" (
         echo    Descargando archivos necesarios 2/4...
-        "!OPTID!\Tools\wget" -q --connect-timeout=15 --tries=3 -O "!OPTID!\Tools\7za.exe" https://cdn.discordapp.com/attachments/1122366459927081050/1142217572457128057/7za.exe) 
+        "!OPTID!\Tools\wget" -q --connect-timeout=15 --tries=3 -O "!OPTID!\Tools\7za.exe" https://github.com/TheAnx/OptiLauncherU/raw/main/7za.exe) 
 if not exist "!OPTID!\Tools\7zxa.dll" (
         echo    Descargando archivos necesarios 3/4...
-        "!OPTID!\Tools\wget" -q --connect-timeout=15 --tries=3 -O  "!OPTID!\Tools\7zxa.dll" https://cdn.discordapp.com/attachments/1122366459927081050/1142217572109013114/7zxa.dll) 
+        "!OPTID!\Tools\wget" -q --connect-timeout=15 --tries=3 -O  "!OPTID!\Tools\7zxa.dll" https://github.com/TheAnx/OptiLauncherU/raw/main/7zxa.dll) 
 if not exist "!OPTID!\Tools\7za.dll" (
         echo    Descargando archivos necesarios 4/4...
-        "!OPTID!\Tools\wget" -q --connect-timeout=15 --tries=3 -O "!OPTID!\Tools\7za.dll" https://cdn.discordapp.com/attachments/1122366459927081050/1142217573165977650/7za.dll
+        "!OPTID!\Tools\wget" -q --connect-timeout=15 --tries=3 -O "!OPTID!\Tools\7za.dll" https://github.com/TheAnx/OptiLauncherU/raw/main/7za.dll
         echo.) 
 
 echo -------------------------------------------------------------
-echo.
+if !wver! == 10.0 (echo.)
 echo    1. OptiCraft Bedrock
 echo    2. OptiCraft Java
 echo    3. Actualizar versiones
@@ -95,7 +148,7 @@ echo     /_____/  _/_/ /_/_____/_/_//___/_/_/___/_/_/___/_/
 echo           /_/                                           
 echo.
 echo -------------------------------------------------------------
-echo.
+if !wver! == 10.0 (echo.)
 echo    0. Inicio
 echo.
 echo    1. Ejecutar OptiCraft 1.7.3.1
@@ -142,8 +195,8 @@ if exist "!OPTID!\OptiCraft !%choice2%! By OptiJuegos!5a!\" (
     mode con: cols=61 lines=4
     cls
     echo.
-    echo              No se pudo encontrar OptiCraft.
-    echo        Presioná cualquier tecla para descargarlo...
+    echo               No se pudo encontrar OptiCraft.
+    echo         Presioná cualquier tecla para descargarlo...
     pause > nul
     cls
     echo.
@@ -177,7 +230,7 @@ echo     /_____/  _/_/ /_/_____/_/_//___/_/_/___/_/_/___/_/
 echo           /_/                                           
 echo.
 echo -------------------------------------------------------------
-echo.
+if !wver! == 10.0 (echo.)
 echo    0. Inicio
 echo.
 echo    1. Ejecutar OptiCraft Java 1.7.10
@@ -196,7 +249,7 @@ if !choice3! == 0 (goto menu)
 :runjava
 
 set 1=1.7.10
-set 2=CLIENTS 1.8.9
+set 2=1.8.9
 set 3=1.12.2 FORGE
 set 4=1.16.5
 set 5=1.20.0
@@ -207,6 +260,7 @@ if not !choice3! == 1 (set javaA=JAVA.)
 if exist "!OPTID!\OptiCraft !%choice3%!\" (set exists=1)
 if exist "!OPTID!\OptiCraft JAVA !%choice3%!\" (set exists=1)
 if exist "!OPTID!\OptiCraft Java !%choice3%!\" (set exists=1)
+if exist "!OPTID!\OptiCraft JAVA CLIENTS !%choice3%!\" (set exists=1)
 
 if not !exists! == 1 (set 3=1.12.2.FORGE
     mode con: cols=61 lines=4
@@ -228,6 +282,7 @@ if not !exists! == 1 (set 3=1.12.2.FORGE
 
 if !exists! == 1 (cd "!OPTID!\OptiCraft !%choice3%!\"
     cd "!OPTID!\OptiCraft JAVA !%choice3%!\"
+    cd "!OPTID!\OptiCraft JAVA CLIENTS !%choice3%!\"
     set filecount=11
     for %%A in (*) do set /a filecount+=1
     cls
@@ -252,7 +307,8 @@ if !exists! == 1 (cd "!OPTID!\OptiCraft !%choice3%!\"
     set /p batdir= < tmp
     del tmp
     start "New Window" cmd /c "!batdir!"
-    
+
+    cd ../..
     mode con: cols=61 lines=4
     cls
     echo.
@@ -277,7 +333,7 @@ echo     /_____/  _/_/ /_/_____/_/_//___/_/_/___/_/_/___/_/
 echo           /_/                                           
 echo.
 echo -------------------------------------------------------------
-echo.
+if !wver! == 10.0 (echo.)
 echo    0. Inicio
 echo.
 echo    1. Ejecutar Craftsman
@@ -384,7 +440,7 @@ echo     /_____/  _/_/ /_/_____/_/_//___/_/_/___/_/_/___/_/
 echo           /_/                                           
 echo.
 echo -------------------------------------------------------------
-echo.
+if !wver! == 10.0 (echo.)
 echo    Antes de continuar, debés saber que las actualizaciones
 echo    pueden tardar aproximadamente 24 horas en subirse.
 echo.
@@ -413,7 +469,7 @@ echo     /_____/  _/_/ /_/_____/_/_//___/_/_/___/_/_/___/_/
 echo           /_/                                           
 echo.
 echo -------------------------------------------------------------
-echo.
+if !wver! == 10.0 (echo.)
 echo                Qué versión querés actualizar?
 echo.
 echo    0. Inicio
