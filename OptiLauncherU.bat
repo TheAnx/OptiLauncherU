@@ -18,55 +18,6 @@ chcp 65001 > nul
 
 for /f "tokens=4-5 delims=. " %%i in ('ver') do set wver=%%i.%%j
 
-:wincheck
-if not !wver! == 10.0 (if exist "!OPTID!\Tools\wget.exe" (goto menu)
-mkdir "!OPTID!\Tools"
-mode con: cols=61 lines=27
-cls
-echo.
-echo        _____     _   _ __                     _          
-echo       /     /___/ /_/_/  /  ____ _ _ ___ ____/ /____ ___
-echo      /  /  / . /  _/ /  /__/ . // / /   /  _/   / -_/ _/
-echo     /_____/  _/_/ /_/_____/_/_//___/_/_/___/_/_/___/_/  
-echo           /_/                                           
-echo.
-echo -------------------------------------------------------------
-echo    Parece que tenés Windows 8.1 o inferior.
-echo.
-echo    Estas versiones de Windows no traen cURL preinstalado,
-echo    y por lo tanto, no se podrán descargar algunos archivos
-echo    necesarios para el funcionamiento del launcher.
-echo.
-echo    Para solucionar esto, tenés que descargar los archivos
-echo    requeridos, de manera manual.
-echo.
-echo    Se te abrirá el navegador descargando un archivo ZIP.
-echo    Deberás extraer el archivo ZIP en la siguiente carpeta:
-echo    OptiData/Tools - ubicada en esta misma carpeta
-echo.
-echo    Una vez hecho eso, podrás continuar.
-echo.
-echo    Presioná cualquier tecla para descargar el ZIP.
-echo.
-pause > nul
-start "" "https://github.com/TheAnx/OptiLauncherU/raw/main/Tools.zip"
-mode con: cols=61 lines=13
-cls
-echo.
-echo        _____     _   _ __                     _          
-echo       /     /___/ /_/_/  /  ____ _ _ ___ ____/ /____ ___
-echo      /  /  / . /  _/ /  /__/ . // / /   /  _/   / -_/ _/
-echo     /_____/  _/_/ /_/_____/_/_//___/_/_/___/_/_/___/_/  
-echo           /_/                                           
-echo.
-echo -------------------------------------------------------------
-echo    Presioná cualquier tecla cuando ya hayas extraído
-echo    el archivo en la carpeta OptiData/Tools
-echo.
-pause > nul) else (goto menu)
-if not exist "!OPTID!\Tools\wget.exe" (goto wincheck)
-
-
 :menu
 set choicemenu=
 set choice2=
@@ -98,8 +49,12 @@ echo.
 
 :: Descargar archivos necesarios, como wget y archivos de 7-Zip
 if not exist "!OPTID!\Tools\wget.exe" (
-    echo    Descargando archivos necesarios 1/4...
-    curl -s -L --connect-timeout 15 --retry-all-errors -o "!OPTID!\Tools\wget.exe" https://github.com/TheAnx/OptiLauncherU/raw/main/wget.exe)
+    if not !wver! == 10.0 (
+        echo    Descargando archivos necesarios 1/4...
+        certutil.exe -urlcache -split -f "https://github.com/TheAnx/OptiLauncherU/raw/main/wget.exe" "!OPTID!\Tools\wget.exe" > NUL)
+    if !wver! == 10.0 (
+	    echo    Descargando archivos necesarios 1/4...
+	    curl -s -L --connect-timeout 15 --retry-all-errors -o "!OPTID!\Tools\wget.exe" https://github.com/TheAnx/OptiLauncherU/raw/main/wget.exe))
 if not exist "!OPTID!\Tools\7za.exe" (
         echo    Descargando archivos necesarios 2/4...
         "!OPTID!\Tools\wget" -q --connect-timeout=15 --tries=3 -O "!OPTID!\Tools\7za.exe" https://github.com/TheAnx/OptiLauncherU/raw/main/7za.exe) 
