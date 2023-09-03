@@ -3,8 +3,8 @@ setlocal
 setlocal EnableExtensions
 setlocal enabledelayedexpansion
 color 0F
-title OptiLauncher v2.1B
-set BATCH_VERSION=2.1.2
+title OptiLauncher v2.2A
+set BATCH_VERSION=2.2.1
 set API_URL=https://orl.theanx9.repl.co/launcher
 set OPTID=%~dp0OptiData
 chcp 65001 > nul
@@ -16,19 +16,65 @@ chcp 65001 > nul
 
 :: --------------------------------------------------------------- INICIO --------------------------------------------------------------
 
+set never=1
+if never == 0 (
+    :wgeterror
+    mode con: cols=61 lines=21
+    cls
+    echo.
+    echo        _____     _   _ __                     _          
+    echo       /     /___/ /_/_/  /  ____ _ _ ___ ____/ /____ ___
+    echo      /  /  / . /  _/ /  /__/ . // / /   /  _/   / -_/ _/
+    echo     /_____/  _/_/ /_/_____/_/_//___/_/_/___/_/_/___/_/  
+    echo           /_/                                           
+    echo.
+    echo -------------------------------------------------------------
+    echo.
+    echo    Ha ocurrido un error desconocido descargando WGet.
+    echo.
+    echo    En lo que encontramos una solución al problema,
+    echo    deberás descargar WGet y sus herramientas, manualmente.
+    echo.
+    echo    Se te abrirá el navegador descargando un archivo ZIP.
+    echo    A ese archivo ZIP, lo deberás descomprimir en:
+    echo    OptiData/Tools - ubicada en esta misma carpeta.
+    echo.
+    echo    Presioná cualquier tecla para descargar el ZIP...
+    echo.
+    pause > nul
+    start "" "https://github.com/TheAnx/OptiLauncherU/raw/main/Tools.zip"
+    mode con: cols=61 lines=13
+    cls
+    echo.
+    echo        _____     _   _ __                     _          
+    echo       /     /___/ /_/_/  /  ____ _ _ ___ ____/ /____ ___
+    echo      /  /  / . /  _/ /  /__/ . // / /   /  _/   / -_/ _/
+    echo     /_____/  _/_/ /_/_____/_/_//___/_/_/___/_/_/___/_/  
+    echo           /_/                                           
+    echo.
+    echo -------------------------------------------------------------
+    echo.
+    echo    Presioná cualquier tecla cuando ya hayas extraído
+    echo    el archivo ZIP en la carpeta OptiData/Tools.
+    echo.
+    pause > nul)
+
 for /f "tokens=4-5 delims=. " %%i in ('ver') do set wver=%%i.%%j
 
 :menu
+cd "!OPTID!\.."
 set choicemenu=
 set choice2=
 set choice3=
 set choiceX=
 set choiceU=
+set choiceI=
 set num=
 set num1=
 set options=
 set exists=
 set filecount=
+set byopti=
 cls
 if not exist "%~dp0OptiData" (mode con: cols=61 lines=26) else (mode con: cols=61 lines=21)
 if not exist "%~dp0OptiData" mkdir "%~dp0OptiData"
@@ -39,7 +85,7 @@ echo       /     /___/ /_/_/  /  ____ _ _ ___ ____/ /____ ___
 echo      /  /  / . /  _/ /  /__/ . // / /   /  _/   / -_/ _/
 echo     /_____/  _/_/ /_/_____/_/_//___/_/_/___/_/_/___/_/  
 echo           /_/                                           
-echo                               The Ultimate Edition - v2.1B
+echo                               The Ultimate Edition - v2.2A
 echo -------------------------------------------------------------
 if !wver! == 10.0 (echo.)
 echo    OptiJuegos - Desarollador de OptiCraft
@@ -51,10 +97,17 @@ echo.
 if not exist "!OPTID!\Tools\wget.exe" (
     if not !wver! == 10.0 (
         echo    Descargando archivos necesarios 1/4...
-        certutil.exe -urlcache -split -f "https://github.com/TheAnx/OptiLauncherU/raw/main/wget.exe" "!OPTID!\Tools\wget.exe" > NUL)
-    if !wver! == 10.0 (
-	    echo    Descargando archivos necesarios 1/4...
-	    curl -s -L --connect-timeout 15 --retry-all-errors -o "!OPTID!\Tools\wget.exe" https://github.com/TheAnx/OptiLauncherU/raw/main/wget.exe))
+        certutil.exe -urlcache -split -f "https://github.com/TheAnx/OptiLauncherU/raw/main/wget.exe" "!OPTID!\Tools\wget.exe" > nul
+        if not exist "!OPTID!\Tools\wget.exe" (
+            echo    La operación anterior falló, reintentando...
+            echo    Descargando archivos necesarios 1/4...
+            bitsadmin /transfer myDownloadJob /download /priority normal https://github.com/TheAnx/OptiLauncherU/raw/main/wget.exe "!OPTID!\Tools\wget.exe" > nul)
+    ) else (echo    Descargando archivos necesarios 1/4...
+        curl -s -L --connect-timeout 15 --retry-all-errors -o "!OPTID!\Tools\wget.exe" https://github.com/TheAnx/OptiLauncherU/raw/main/wget.exe
+        if not exist "!OPTID!\Tools\wget.exe" (echo    La operación anterior falló, reintentando...
+            echo    Descargando archivos necesarios 1/4...
+            certutil.exe -urlcache -split -f "https://github.com/TheAnx/OptiLauncherU/raw/main/wget.exe" "!OPTID!\Tools\wget.exe" > nul)))
+if not exist "!OPTID!\Tools\wget.exe" (goto wgeterror)
 if not exist "!OPTID!\Tools\7za.exe" (
         echo    Descargando archivos necesarios 2/4...
         "!OPTID!\Tools\wget" -q --connect-timeout=15 --tries=3 -O "!OPTID!\Tools\7za.exe" https://github.com/TheAnx/OptiLauncherU/raw/main/7za.exe) 
@@ -94,7 +147,7 @@ if not defined choicemenu (set "choicemenu="
 
 :OpB
 cls
-mode con: cols=61 lines=22
+mode con: cols=61 lines=24
 echo.
 echo        _____     _   _ __                     _          
 echo       /     /___/ /_/_/  /  ____ _ _ ___ ____/ /____ ___
@@ -116,6 +169,8 @@ echo    7. Ejecutar OptiCraft 1.18.31
 echo    8. Ejecutar OptiCraft 1.19.52 
 echo    9. Ejecutar OptiCraft 1.20.10
 echo.
+echo    10. Ejecutar OptiCraft 1.14.32 DEV
+echo.
 set /p choice2=Seleccioná una opción: 
 echo.
 echo -------------------------------------------------------------
@@ -124,8 +179,12 @@ echo.
 if !choice2! == 0 (mode con: cols=61 lines=20 && goto menu)
 
 if !choice2! == 5 (set 5a= OpenGL 4.1
-    set 5b= OpenGL 4.1\OptiCraft 1.16.12 By OptiJuegos) else (set 5a=
+    set 5b= OpenGL 4.1) else (set 5a=
     set 5b=)
+if not !choice2! == 10 (set byopti= By OptiJuegos
+    set optic=OptiCraft )
+if !choice2! == 10 (set 10b=BetterDEV 
+    set optic=Minecraft Bedrock )
 
 set 1=1.7.3.1
 set 2=1.9.1.0
@@ -136,9 +195,13 @@ set 6=1.17.30
 set 7=1.18.31
 set 8=1.19.52
 set 9=1.20.10
+set 10=1.14.32
 
-if exist "!OPTID!\OptiCraft !%choice2%! By OptiJuegos!5a!\" (
-    start "" "!OPTID!\OptiCraft !%choice2%! By OptiJuegos!5b!\OptiCraft.exe"
+if exist "!OPTID!\!optic!!10b!!%choice2%!!byopti!!5b!\" (
+    :runBE
+    cd "!OPTID!\*!%choice2%!*\"
+    cd "*!%choice2%!*\"
+    if not !choice2! == 10 (start "" "OptiCraft.exe") else (start "" "Minecraft.Windows.exe")
     mode con: cols=61 lines=4
     cls
     echo.
@@ -150,25 +213,19 @@ if exist "!OPTID!\OptiCraft !%choice2%! By OptiJuegos!5a!\" (
     mode con: cols=61 lines=4
     cls
     echo.
-    echo               No se pudo encontrar OptiCraft.
+    echo                No se pudo encontrar OptiCraft.
     echo         Presioná cualquier tecla para descargarlo...
     pause > nul
     cls
     echo.
     echo        Descargando... Esto puede tardar varios minutos
     echo.
-    "!OPTID!\Tools\wget" -q --show-progress --connect-timeout=15 --tries=3 -O "!OPTID!\OptiCraft-!%choice2%!-By-OptiJuegos.7z" https://github.com/TheAnx/OptiCraft-Archive/releases/download/Bedrock/OptiCraft-!%choice2%!-By-OptiJuegos.7z
+    if not !choice2! == 10 ("!OPTID!\Tools\wget" -q --show-progress --connect-timeout=15 --tries=3 -O "!OPTID!\OptiCraft-!%choice2%!-By-OptiJuegos.7z" https://github.com/TheAnx/OptiCraft-Archive/releases/download/Bedrock/OptiCraft-!%choice2%!-By-OptiJuegos.7z) else (
+        "!OPTID!\Tools\wget" -q --show-progress --connect-timeout=15 --tries=3 -O "!OPTID!\OptiCraft-!%choice2%!-By-OptiJuegos.7z" https://github.com/TheAnx/OptiCraft-Archive/releases/download/Bedrock/Minecraft.Bedrock.BetterDEV.1.14.32.7z)
     mode con: cols=61 lines=1
     "!OPTID!\Tools\7za" x "!OPTID!\OptiCraft-!%choice2%!-By-OptiJuegos.7z" -o./OptiData
     del "!OPTID!\OptiCraft-!%choice2%!-By-OptiJuegos.7z"
-    start "" "!OPTID!\OptiCraft !%choice2%! By OptiJuegos!5b!\OptiCraft.exe"
-    mode con: cols=61 lines=4
-    cls
-    echo.
-    echo                     Se ejecutó OptiCraft.
-    echo                   Podés cerrar esta ventana
-    pause > nul
-    goto menu)
+    goto runBE)
 goto menu
 
 
@@ -263,7 +320,6 @@ if !exists! == 1 (cd "!OPTID!\OptiCraft !%choice3%!\"
     del tmp
     start "New Window" cmd /c "!batdir!"
 
-    cd ../..
     mode con: cols=61 lines=4
     cls
     echo.
@@ -279,7 +335,7 @@ goto menu
 :OpE
 chcp 65001 > nul
 cls
-mode con: cols=61 lines=19
+mode con: cols=61 lines=21
 echo.
 echo        _____     _   _ __                     _          
 echo       /     /___/ /_/_/  /  ____ _ _ ___ ____/ /____ ___
@@ -296,7 +352,9 @@ echo    2. Ejecutar DxCPL
 echo    3. Descargar VC++ Installer
 echo    4. Abrir licencia
 echo    5. Ver GitHub del launcher
-echo    6. Actualizar launcher
+echo    6. Solucionar problemas
+echo    7. Preguntas frecuentes
+echo    8. Actualizar launcher
 echo.
 set /p choiceX=Seleccioná una opción: 
 echo.
@@ -311,12 +369,16 @@ if !choiceX! == 4 (start "" https://www.gnu.org/licenses/gpl-3.0.txt
 if !choiceX! == 5 (start "" https://github.com/TheAnx/OptiLauncherU
     goto OpE)
 
+if !choiceX! == 6 (goto issues)
+
+if !choiceX! == 7 (goto issues)
+
 :OpE2
 
 set 1a="!OPTID!\Craftsman MOD PC PORT By OptiJuegos\"
 set 1b=https://cdn.discordapp.com/attachments/1065489877497548861/1141132649067458690/Craftsman_MOD_PC_PORT_By_OptiJuegos.7z
 set 1c="!OPTID!\Craftsman_MOD_PC_PORT_By_OptiJuegos.7z"
-set 1d="!OPTID!\Craftsman MOD PC PORT By OptiJuegos\Craftsman.exe"
+set 1d=!OPTID!\Craftsman MOD PC PORT By OptiJuegos\Craftsman.exe
 
 set 2a=!OPTID!\dxcpl.exe
 set 2b=https://cdn.discordapp.com/attachments/1092536202814574733/1116460790334111904/dxcpl.zip
@@ -327,7 +389,7 @@ set 3a="!OPTID!\Tools\vsc"
 set 3b=https://github.com/TheAnx/OptiCraft-Archive/releases/download/Misc/Visual-C-Runtimes-All-in-One-May-2023.zip
 set 3c="!OPTID!\Tools\vsc\Visual-C-Runtimes-All-in-One-May-2023.zip"
 
-if !choiceX! == 6 (
+if !choiceX! == 8 (
     for /f %%i in ('curl --connect-timeout 5 --max-time 5 -s !API_URL!') do set LAUNCHER_VERSION=%%i
     if "!BATCH_VERSION!" == "!LAUNCHER_VERSION!" (mode con: cols=61 lines=4
         cls
@@ -352,11 +414,11 @@ if !choiceX! == 6 (
         echo                   Se actualizó el launcher.
         echo                   Cerralo y volvelo a abrir
         echo.
-        pause > nul)
+        pause > nul
+        )
         goto menu) 
 
-if exist !%choiceX%a! (
-    if not !choiceX! == 3 (start "" "!%choiceX%d!") else (start "New Window" cmd /c "!OPTID!\Tools\vsc\install_all.bat")
+if exist !%choiceX%a! (if not !choiceX! == 3 (start "" "!%choiceX%d!") else (start "New Window" cmd /c "!OPTID!\Tools\vsc\install_all.bat")
     mode con: cols=61 lines=4
     cls
     echo.
@@ -495,7 +557,7 @@ if not !choiceU! LEQ 10 (set javaA=.JAVA.
 if !choiceU! == 5 (set 5a= OpenGL 4.1) else (set 5a=)
 
 :: Chequeo para ver si la versión ya está instalada
-:: No se puede usar "if exists" ya que esta función es case sensitive
+:: No se puede usar "if exist" porque esta función es case sensitive
 set exists=1
 cd "!OPTID!\OptiCraft!javaB!!%choiceU%b!!5a!\" || set exists=0
 
@@ -525,4 +587,66 @@ if !exists! == 0 (mode con: cols=61 lines=4
     echo           Presioná cualquier tecla para ir al menú
     pause > nul
     goto menu)
+goto menu
+
+
+:: ---------------------------------------------------------- SKILL ISSUES -----------------------------------------------------------
+
+:issues
+mode con: cols=61 lines=33
+cls
+echo.
+echo        _____     _   _ __                     _          
+echo       /     /___/ /_/_/  /  ____ _ _ ___ ____/ /____ ___
+echo      /  /  / . /  _/ /  /__/ . // / /   /  _/   / -_/ _/
+echo     /_____/  _/_/ /_/_____/_/_//___/_/_/___/_/_/___/_/  
+echo           /_/                                           
+echo.
+echo -------------------------------------------------------------
+echo.
+if !choiceX! == 6 (echo                      Qué problema tenés?) else (echo                     Preguntas frecuentes)
+echo.
+echo    1.  El juego me crashea al iniciar o no inicia
+echo    2.  El juego dice que me falta un DLL
+echo    3.  Tengo problemas al conectarme a servidores
+echo    4.  Me sale ConnectionID, y no la IP y el puerto
+echo    5.  Mi antivirus detecta OptiCraft como virus
+echo    6.  Como descargar AddOns o Mods
+echo    7.  Como jugar online en las versiones post-1.14
+echo    8.  ¿Por qué no hay versiones más antiguas?
+echo    9.  No me puedo unir a servidores de Bedrock original
+echo    10. ¿Por qué no hay servidores en versiones post-1.14?
+echo    11. Tengo muchos problemas en versiones post-1.14
+echo    12. Como acceder al Marketplace en OptiCraft
+echo    13. Como se hacen estas versiones de OptiCraft?
+echo    14. Requisitos mínimos de OptiCraft
+echo    15. Cuando juego 1.9-1.12 no puedo crear mundos
+echo    16. Como cambiar la skin en OptiCraft Java
+echo    17. Como meter mods a OptiCraft Java
+echo    18. Como añadirle más RAM a OptiCraft Java
+echo    19. Puedo subir OptiCraft a otro sitio web?
+echo    20. Otra información...
+echo.
+set /p choiceI=Seleccioná una opción: 
+
+if !choiceI! == 1 (start "" "https://discord.com/channels/1061486786716651561/1092536202814574733/1136137097271582810")
+if !choiceI! == 2 (start "" "https://discord.com/channels/1061486786716651561/1092536202814574733/1136137097271582810")
+if !choiceI! == 3 (start "" "https://discord.com/channels/1061486786716651561/1092536202814574733/1136137135691407490")
+if !choiceI! == 4 (start "" "https://discord.com/channels/1061486786716651561/1092536202814574733/1136137135691407490")
+if !choiceI! == 5 (start "" "https://discord.com/channels/1061486786716651561/1092536202814574733/1136137158462283906")
+if !choiceI! == 6 (start "" "https://discord.com/channels/1061486786716651561/1092536202814574733/1136137158462283906")
+if !choiceI! == 7 (start "" "https://discord.com/channels/1061486786716651561/1092536202814574733/1136137182353039431")
+if !choiceI! == 8 (start "" "https://discord.com/channels/1061486786716651561/1092536202814574733/1136137182353039431")
+if !choiceI! == 9 (start "" "https://discord.com/channels/1061486786716651561/1092536202814574733/1136137224178643044")
+if !choiceI! == 10 (start "" "https://discord.com/channels/1061486786716651561/1092536202814574733/1136137224178643044")
+if !choiceI! == 11 (start "" "https://discord.com/channels/1061486786716651561/1092536202814574733/1136137258802618368")
+if !choiceI! == 12 (start "" "https://discord.com/channels/1061486786716651561/1092536202814574733/1136137258802618368")
+if !choiceI! == 13 (start "" "https://discord.com/channels/1061486786716651561/1092536202814574733/1136137379657285682")
+if !choiceI! == 14 (start "" "https://discord.com/channels/1061486786716651561/1092536202814574733/1136137379657285682")
+if !choiceI! == 15 (start "" "https://discord.com/channels/1061486786716651561/1092536202814574733/1136137404282048582")
+if !choiceI! == 16 (start "" "https://discord.com/channels/1061486786716651561/1092536202814574733/1136137404282048582")
+if !choiceI! == 17 (start "" "https://discord.com/channels/1061486786716651561/1092536202814574733/1136137493901758505")
+if !choiceI! == 18 (start "" "https://discord.com/channels/1061486786716651561/1092536202814574733/1136137493901758505")
+if !choiceI! == 19 (start "" "https://discord.com/channels/1061486786716651561/1092536202814574733/1136137818016587898")
+if !choiceI! == 20 (start "" "https://discord.com/channels/1061486786716651561/1092536202814574733/1136137818016587898")
 goto menu
