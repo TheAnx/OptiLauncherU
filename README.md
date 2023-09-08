@@ -13,8 +13,8 @@ Este es un launcher diseñado para poder ejecutar la mayoría de versiones de Op
 
 #### Is there an english version of this launcher? / Существует ли русская версия этой пусковой установки?
 
-- Yes, you can check [OptiLauncherU-MultiLang](https://github.com/NobleEpuz/OptiLauncherU-English-Edition)[Download](https://github.com/NobleEpuz/OptiLauncherU-MultiLang/releases)  made by [@NobleEpuz](https://github.com/NobleEpuz)
-- Да, вы можете проверить [OptiLauncherU-MultiLang](https://github.com/NobleEpuz/OptiLauncherU-English-Edition)[скачать
+- Yes, you can check [OptiLauncherU-MultiLang](https://github.com/NobleEpuz/OptiLauncherU-English-Edition) | [Download](https://github.com/NobleEpuz/OptiLauncherU-MultiLang/releases)  made by [@NobleEpuz](https://github.com/NobleEpuz)
+- Да, вы можете проверить [OptiLauncherU-MultiLang](https://github.com/NobleEpuz/OptiLauncherU-English-Edition) | [скачать
 ](https://github.com/NobleEpuz/OptiLauncherU-MultiLang/releases) сделанный [@NobleEpuz](https://github.com/NobleEpuz)
 #### ¿Cada cuanto se actualizará el launcher?
 
