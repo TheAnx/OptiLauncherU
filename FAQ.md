@@ -123,4 +123,8 @@ Versiones con LAN: 1.7-1.20
 Versiones sin RENDER DRAGON: 1.7-1.18
 Versiones con RENDER DRAGON 1.19-1.20
 
+Arregla tu error de crasheo en OptiCraft 1.19.52.1-1.20 con DXCPL
+Selecciona el .exe del juego, y clickea "Force WARP" aplica, acepta y te deberia funcionar (editado)
+
+
 TUTORIAL SI NO ENTENDES NADA: https://www.youtube.com/watch?v=mZeK-FKn280 
