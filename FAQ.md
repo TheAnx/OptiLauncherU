@@ -42,7 +42,7 @@ Por que el ejecutable del juego esta modificado y su firma digital se invalidita
 
 Si no me crees, hice un video al respecto, puedes verlo para corroborarlo.
  
-Link: cdn.discordapp.com/attachments/871616301443993631/1133998942456135783/output.mp4 
+Link: https://cdn.discordapp.com/attachments/871616301443993631/1133998942456135783/output.mp4 
 
 ### 6-¿Como instalo addons/mods?
 
@@ -69,7 +69,7 @@ Porque OptiCraft no soporta la autenticacion de Xbox necesaria para los servidor
 ### 10-¿Por que no hay Servidores en versiones Posteriores a la 1.12?
 Porque en la version 1.14 de Education Edition, se empezo a modificar la paleta de Bloques para agregar exclusividad a los bloques de esta version.
 Es posible crackear el Protocolo, pero los bloques seguiran bugeados y el juego sera Injugable
-Prueba Aqui: cdn.discordapp.com/attachments/1089298607980679288/1128849002666934272/output.mp4
+Prueba Aqui: https://cdn.discordapp.com/attachments/1089298607980679288/1128849002666934272/output.mp4
 ### 11-Tengo problemas en las versiones Posteriores a la 1.14, los botones en el menu se bugean y se me dificulta crear un mundo ¿Por que sucede?
 Esto sucede por el metodo de Crackeo, en las versiones antiguas se utilizaba un boton denominado "Play" que si lo pulsabas se crackeaba el juego.
 Decidi añadir este nuevo metodo porque me fastidiaba mucho ese boton, aunque lamentablemente se bugean los menus pero estoy intentando solucionarlo
